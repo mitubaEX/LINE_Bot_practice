@@ -2,6 +2,7 @@ import os
 import sys
 from argparse import ArgumentParser
 from configure import Configure
+import requests
 
 from flask import Flask, request, abort
 from linebot import (
@@ -42,10 +43,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
+    talk_data = fetch_talk_data(event.message.text)
     line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=event.message.text)
+            TextSendMessage(text=talk_data)
             )
+
+def fetch_talk_data(message):
+    payload = {'apikey': conf.talk_api_token, 'query': message}
+    r = requests.post('https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk', payload)
+    return r.json()['results'][0]['reply']
 
 if __name__ == "__main__":
     # arg_parser = ArgumentParser(
