@@ -10,7 +10,7 @@ env_var.txtにLINEのトークンやTalkAPIのトークンを記入しよう．
 $ docker-compose up
 
 # after run server
-$ ngrok http 8000
+$ ngrok http 5000
 ```
 
 ## install ngrok
@@ -25,3 +25,20 @@ brew cask install ngrok
 - other
 https://ngrok.com/download
 
+## install heroku
+```
+brew install heroku/brew/heroku
+```
+
+## heroku deploy
+
+```
+# heroku configuration
+heroku container:login
+heroku create
+
+# push
+docker build -t server .
+docker tag server registry.heroku.com/<your app>/web
+docker push registry.heroku.com/<your app>/web
+```
