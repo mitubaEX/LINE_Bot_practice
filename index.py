@@ -2,6 +2,7 @@ import os
 import sys
 from argparse import ArgumentParser
 from configure import Configure
+import requests
 
 from flask import Flask, request, abort
 from linebot import (
