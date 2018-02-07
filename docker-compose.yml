@@ -3,7 +3,7 @@ services:
   server:
     image: python:3.6.4
     ports:
-      - "8000:8000"
+      - "5000:5000"
     hostname: server
     container_name: server
     volumes:

@@ -19,6 +19,10 @@ conf = Configure()
 line_bot_api = LineBotApi(conf.channel_access_token)
 handler = WebhookHandler(conf.channel_secret)
 
+@app.route("/", methods=['GET'])
+def root():
+    return 'root'
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -44,12 +48,13 @@ def message_text(event):
             )
 
 if __name__ == "__main__":
-    arg_parser = ArgumentParser(
-        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
-    )
-    arg_parser.add_argument('-p', '--port', default=8000, help='port')
-    arg_parser.add_argument('-d', '--debug', default=False, help='debug')
-    options = arg_parser.parse_args()
+    # arg_parser = ArgumentParser(
+    #     usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
+    # )
+    # arg_parser.add_argument('-p', '--port', default=80, help='port')
+    # arg_parser.add_argument('-d', '--debug', default=False, help='debug')
+    # options = arg_parser.parse_args()
 
-    app.run(host="0.0.0.0", debug=options.debug, port=options.port)
+    # app.run(host="0.0.0.0", debug=options.debug, port=options.port)
+    app.run(host="0.0.0.0")
 
